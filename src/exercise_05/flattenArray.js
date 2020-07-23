@@ -1,5 +1,3 @@
-import { parse } from "@babel/core";
-
 export default function flattenArray(array) {
   // This function flattens a nested array into a sequence.
   //
