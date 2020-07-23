@@ -11,6 +11,27 @@ export default class Vector {
   // * Please implement the class and pass all the tests in vector_spec.js.
   // * Please do NOT modify the signature of the class. Please put all your code in the Vector
   // class.
+  constructor(xDimen, yDimen) {
+    Object.defineProperty(this, 'x', {
+      value: xDimen,
+      writable: false,
+    });
+    Object.defineProperty(this, 'y', {
+      value: yDimen,
+      writable: false,
+    });
+  }
 
-  // PLEASE DELETE THIS LINE AND ADD YOUR IMPLEMENTATION HERE
+  static plus(vector1, vector2) {
+    return new Vector(vector1.x + vector2.x, vector1.y + vector2.y);
+  }
+
+  static minus(vector1, vector2) {
+    return new Vector(vector1.x - vector2.x, vector1.y - vector2.y);
+  }
+
+  distance() {
+    // eslint-disable-next-line no-restricted-properties
+    return Math.sqrt(Math.pow(this.x, 2) + Math.pow(this.y, 2));
+  }
 }
