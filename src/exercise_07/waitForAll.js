@@ -9,5 +9,27 @@ export default function waitForAll(...promises) {
   // * Please implement this function and pass all the tests in wait_for_all_spec.js.
   // * Please do NOT modify the signature of the function.
 
-  throw new Error('Please delete this line and implement the function');
+  promises.forEach((element) => {
+    if (typeof element !== 'function' && typeof element.then !== 'function') {
+      throw new Error('Not all elements are promises.');
+    }
+  });
+  const arryP = [];
+  let rejectFlag = false;
+  promises.forEach((p) => {
+    arryP.push(
+      new Promise(((resolve) => {
+        p.then((val) => {
+          resolve({ state: true, data: val });
+        }).catch((err) => {
+          rejectFlag = true;
+          resolve({ state: false, data: err });
+        });
+      })),
+    );
+  });
+  // eslint-disable-next-line consistent-return
+  return Promise.all(arryP).then(() => {
+    if (rejectFlag) return Promise.reject(new Error('fail'));
+  });
 }
